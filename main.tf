@@ -53,4 +53,24 @@ resource "azurerm_storage_account" "storage_acc" {
     }
 }
 
+resource "azurerm_network_interface" "vm_net" {
+  #create a network interface for the virtual machine
+  name                = "vm_net"
+  resource_group_name      = azurerm_resource_group.rg1.name
+  location                 = azurerm_resource_group.rg1.location
+
+  ip_configuration {
+    name                          = "internal"
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_virtual_machine" "main" {
+  # virtual machine
+  name                  = var.vm_name
+  resource_group_name      = azurerm_resource_group.rg1.name
+  location                 = azurerm_resource_group.rg1.location
+  network_interface_ids = [azurerm_network_interface.vm_net.id]
+
+ }
 

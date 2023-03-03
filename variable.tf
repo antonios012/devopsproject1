@@ -15,3 +15,8 @@ variable "classmate_name" {
 
   default = "Huiqian.Lin"
 }
+
+variable "vm_name" {
+
+default = "azure_vm"
+}
